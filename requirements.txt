@@ -1,0 +1,4 @@
+moviepy
+srt
+pysrt
+git+https://github.com/agermanidis/autosub.git

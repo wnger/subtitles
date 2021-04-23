@@ -1,0 +1,13 @@
+version: '3'
+services:
+
+  subtitles:
+    image: nv-subtitles
+    build:
+      context: .
+    volumes:
+      - .:/opt/build
+    environment:
+      - VIDEO=demo
+      - BAIDU_APPID=20181107000231263
+      - BAIDU_SECRET_KEY=SnWVBTXbANvTJLnQBGg9
