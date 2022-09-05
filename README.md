@@ -5,7 +5,10 @@ __docker-compose.yml__
 ```
 environment:
   - VIDEO=video_file_name
+  - BAIDU_APPID=app_id
+  - BAIDU_SECRET_KEY=app_secret
 ```
+> Get Baidu App credentials from [Baidu Translation API](https://fanyi-api.baidu.com/)
 
 ## Extract text from speech
 This will generate a .srt file
