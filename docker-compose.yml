@@ -8,6 +8,6 @@ services:
     volumes:
       - .:/opt/build
     environment:
-      - VIDEO=demo
-      - BAIDU_APPID=20181107000231263
-      - BAIDU_SECRET_KEY=SnWVBTXbANvTJLnQBGg9
+      - VIDEO=filename
+      - BAIDU_APPID=
+      - BAIDU_SECRET_KEY=

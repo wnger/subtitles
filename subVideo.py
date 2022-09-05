@@ -21,7 +21,7 @@ audioclip.write_audiofile("videos/{0}-audio.wav".format(VIDEO_FILE))
 subtitles = pysrt.open("videos/{0}-cn.srt".format(VIDEO_FILE))
 
 # use a truetype font
-font = ImageFont.truetype("SourceHanSansCN-Medium.otf", 24)
+font = ImageFont.truetype("NotoSansSC-Regular.otf", 24)
 fillColor = (255,255,255,255)
 strokeColor = (0, 0, 0)
 

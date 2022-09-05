@@ -43,6 +43,8 @@ def translate(val):
         result_all = response.read().decode("utf-8")
         result = json.loads(result_all)
         transResult = result['trans_result'][0]['dst']
+        if transResult == None:
+            transResult = val
 
         print('Original:', val)
         print('Translated', transResult)
