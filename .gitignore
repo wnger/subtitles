@@ -2,4 +2,4 @@
 .ipynb_checkpoints
 images/
 videos/
-config/
+config.json

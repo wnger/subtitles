@@ -8,10 +8,14 @@ import json
 import re
 import time
 import srt
+import json
 
-VIDEO_FILE = os.environ['VIDEO']
-BAIDU_APPID = os.environ['BAIDU_APPID']
-BAIDU_SECRET_KEY = os.environ['BAIDU_SECRET_KEY']
+with open('config.json', encoding='utf-8') as f:
+    CONFIG = json.load(f)
+
+BAIDU_APPID = CONFIG['APP_ID']
+BAIDU_SECRET_KEY = CONFIG['SECRET_KEY']
+VIDEO_FILE = CONFIG['VIDEO']
 
 print('Translating subtitles...', VIDEO_FILE)
 
