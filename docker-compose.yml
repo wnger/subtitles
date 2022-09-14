@@ -7,7 +7,3 @@ services:
       context: .
     volumes:
       - .:/opt/build
-    environment:
-      - VIDEO=filename
-      - BAIDU_APPID=
-      - BAIDU_SECRET_KEY=

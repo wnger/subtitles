@@ -15,7 +15,12 @@ with open('config.json', encoding='utf-8') as f:
 
 BAIDU_APPID = CONFIG['APP_ID']
 BAIDU_SECRET_KEY = CONFIG['SECRET_KEY']
-VIDEO_FILE = CONFIG['VIDEO']
+
+args = sys.argv
+if len(args) < 2:
+    quit('No video')
+
+VIDEO_FILE = args[1]
 
 print('Translating subtitles...', VIDEO_FILE)
 
