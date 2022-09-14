@@ -3,7 +3,7 @@ import pysrt
 import json
 import numpy as np
 import re
-import sys
+import sys, getopt
 import os
 from PIL import ImageFont, ImageDraw, Image
 from moviepy.editor import *
@@ -11,14 +11,33 @@ from moviepy.video.tools.subtitles import SubtitlesClip
 from moviepy.video.io.VideoFileClip import VideoFileClip
 from moviepy.video.compositing.CompositeVideoClip import CompositeVideoClip
 
-args = sys.argv
+VIDEO_WIDTH = 1280
+VIDEO_HEIGHT = 720
+startTime = '00::00:00'
+endTime = '00::00:10'
 
-if len(args) < 2:
-    quit('No video')
+argv = sys.argv[1:]
 
-VIDEO_FILE = args[1]
-VIDEO_WIDTH = args[2] if len(args) > 3 and args[2] else 1280
-VIDEO_HEIGHT = args[3] if len(args) > 3 and args[3] else 720
+try:
+    opts, args = getopt.getopt(argv, "v:w:h:s:e:")
+except:
+    print('error')
+
+for opt, arg in opts:
+    if opt in ['-v']:
+        VIDEO_FILE = arg
+    if opt in ['-w']:
+        VIDEO_WIDTH = arg
+    if opt in ['-h']:
+        VIDEO_HEIGHT = arg
+    if opt in ['-s']:
+        startTime = arg
+    if opt in ['-e']:
+        endTime = arg
+
+if '-s' in argv and '-e' in argv:
+        os.system('ffmpeg -i videos/%s.mp4 -ss %s -to %s -c copy videos/10s.mp4 -y'%(VIDEO_FILE, startTime, endTime))
+        quit('Video generated')
 
 clip = VideoFileClip("videos/{0}.mp4".format(VIDEO_FILE))
 clip = clip.resize( (VIDEO_WIDTH,VIDEO_HEIGHT) ) # New resolution: (460,720)
@@ -86,8 +105,3 @@ final.write_videofile("videos/{0}-cn.mp4".format(VIDEO_FILE), fps=clip.fps)
 #
 # # Add audio fix
 os.system('ffmpeg -i videos/%s-cn.mp4 -i videos/%s-audio.wav -c:v copy -map 0:v:0 -map 1:a:0 -c:a aac -b:a 192k videos/%s-audio-cn.mp4 -y'%(VIDEO_FILE,VIDEO_FILE,VIDEO_FILE))
-
-# Generate 10s file
-if '-10s' in args:
-    print('General 10s video')
-    os.system('ffmpeg -i videos/%s.mp4 -ss 00:00:00 -to 00:00:10 -c copy videos/10s.mp4 -y'%(VIDEO_FILE))
