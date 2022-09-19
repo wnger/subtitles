@@ -36,7 +36,7 @@ for opt, arg in opts:
         endTime = arg
 
 if '-s' in argv and '-e' in argv:
-        os.system('ffmpeg -i videos/%s.mp4 -ss %s -to %s -c copy videos/10s.mp4 -y'%(VIDEO_FILE, startTime, endTime))
+        os.system('ffmpeg -i videos/%s.mp4 -ss %s -to %s -c copy videos/%s-10s.mp4 -y'%(VIDEO_FILE, startTime, endTime, VIDEO_FILE))
         quit('Video generated')
 
 clip = VideoFileClip("videos/{0}.mp4".format(VIDEO_FILE))
@@ -50,12 +50,13 @@ audioclip.write_audiofile("videos/{0}-audio.wav".format(VIDEO_FILE))
 subtitles = pysrt.open("videos/{0}-cn.srt".format(VIDEO_FILE))
 
 # use a truetype font
-fontSize = 24
+fontSize = 28
 font = ImageFont.truetype("NotoSansSC-Regular.otf", fontSize)
 fillColor = (255,255,255,255)
+grayColor = (50, 50, 50)
 strokeColor = (0, 0, 0)
 
-lineHeight = 2.4
+lineHeight = fontSize/10
 bottomSpacing = 80
 patternEN = '(?i)[a-z]'
 
@@ -69,16 +70,23 @@ def drawText(image, textList):
 
     for i, line in enumerate(textList):
 
+        if line == '%':
+            continue
+
         # Centralize texts
         vSpace = lineHeight*(i)
         textsize = cv2.getTextSize(line, 0, 0.5, 2)[0]
         textX = int((pil_im.size[0] - ((textsize[0]))) / 2)
+        if i == 0:
+            textX -= fontSize
+
         textY = int(pil_im.size[1] - (textsize[1]*(vSpace))-(bottomSpacing))
 
         # Draw the text
-
-        draw.text((textX, textY), line, font=font, fill=fillColor, stroke_width=1, stroke_fill=strokeColor)
-#         draw.text((textX, textY-1), line, font=font, fill=fillColor, stroke_width=0, stroke_fill=fillColor)
+        # draw.text((textX, textY), line, font=font, fill=fillColor, stroke_width=1, stroke_fill=strokeColor)
+        draw.text((textX, textY), line, font=font, fill=grayColor, stroke_width=0, stroke_fill=strokeColor)
+        draw.text((textX-1, textY-1), line, font=font, fill=strokeColor, stroke_width=1, stroke_fill=strokeColor)
+        draw.text((textX-2, textY-2), line, font=font, fill=fillColor, stroke_width=0, stroke_fill=strokeColor)
 
     cv2_im_processed = cv2.cvtColor(np.array(pil_im), cv2.COLOR_RGB2BGR)
     return cv2_im_processed

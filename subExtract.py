@@ -9,5 +9,5 @@ if len(args) < 2:
 
 VIDEO_FILE = args[1]
 
-print('Extracting text from video...', video)
-os.system('autosub videos/%s.mp4 -S en' % video)
+print('Extracting text from video...', VIDEO_FILE)
+os.system('autosub videos/%s.mp4 -S en' % VIDEO_FILE)

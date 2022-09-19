@@ -9,12 +9,15 @@ import re
 import time
 import srt
 import json
+import sys
 
 with open('config.json', encoding='utf-8') as f:
     CONFIG = json.load(f)
 
 BAIDU_APPID = CONFIG['APP_ID']
 BAIDU_SECRET_KEY = CONFIG['SECRET_KEY']
+
+print('Config', CONFIG)
 
 args = sys.argv
 if len(args) < 2:
