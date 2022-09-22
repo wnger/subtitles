@@ -51,7 +51,7 @@ subtitles = pysrt.open("videos/{0}-cn.srt".format(VIDEO_FILE))
 
 # use a truetype font
 fontSize = 28
-font = ImageFont.truetype("NotoSansSC-Regular.otf", fontSize)
+font = ImageFont.truetype("NotoSansSC-Bold.otf", fontSize)
 fillColor = (255,255,255,255)
 grayColor = (50, 50, 50)
 strokeColor = (0, 0, 0)
@@ -77,8 +77,8 @@ def drawText(image, textList):
         vSpace = lineHeight*(i)
         textsize = cv2.getTextSize(line, 0, 0.5, 2)[0]
         textX = int((pil_im.size[0] - ((textsize[0]))) / 2)
-        if i == 0:
-            textX -= fontSize
+        # if i == 0:
+        textX -= fontSize
 
         textY = int(pil_im.size[1] - (textsize[1]*(vSpace))-(bottomSpacing))
 
@@ -86,7 +86,7 @@ def drawText(image, textList):
         # draw.text((textX, textY), line, font=font, fill=fillColor, stroke_width=1, stroke_fill=strokeColor)
         draw.text((textX, textY), line, font=font, fill=grayColor, stroke_width=0, stroke_fill=strokeColor)
         draw.text((textX-1, textY-1), line, font=font, fill=strokeColor, stroke_width=1, stroke_fill=strokeColor)
-        draw.text((textX-2, textY-2), line, font=font, fill=fillColor, stroke_width=0, stroke_fill=strokeColor)
+        draw.text((textX-2, textY-2), line, font=font, fill=fillColor, stroke_width=1, stroke_fill=strokeColor)
 
     cv2_im_processed = cv2.cvtColor(np.array(pil_im), cv2.COLOR_RGB2BGR)
     return cv2_im_processed

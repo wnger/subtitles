@@ -30,9 +30,11 @@ print('Translating subtitles...', VIDEO_FILE)
 # Do translation
 def translate(val):
 
-    if val == None or val.strip() == '' or re.match(r"^\[.*\]$", val) or ' ' not in val:
+    if val == None:
         return val
 
+    if re.match(r"^\[.*\]$", val) or ' ' not in val:
+        return val
 
     time.sleep(1)
 
@@ -109,9 +111,15 @@ def translateSRT():
     subtitle_generator = srt.parse(srtData)
     subtitles = list(subtitle_generator)
 
+    srtFileCN = open('./videos/{0}-cn.srt'.format(VIDEO_FILE), "w", encoding='utf-8')
+
     for key, s in enumerate(subtitles):
         transContent = translate(s.content)
         transContent = addSpace(transContent)
+
+        if transContent == None:
+            transContent = s.content
+
         subtitles[key].content = transContent
 
     srtFileCN = open('./videos/{0}-cn.srt'.format(VIDEO_FILE), "w", encoding='utf-8')
